@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Resep Nusantara</string>
+    <string name="recipes_name">Nama Makanan</string>
+    <string name="recipes">Resep</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
+    <string name="card_view">Card View</string>
+    <string name="description">deskripsi</string>
+    <string name="favorite">Favorite</string>
+    <string name="share">Share</string>
+
+</resources>
