@@ -11,9 +11,8 @@ import com.bumptech.glide.request.RequestOptions
 @Suppress("DEPRECATION")
 class GridRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
     RecyclerView.Adapter<GridRecipeAdapter.GridViewHolder>() {
-    private lateinit var onItemClickCallback: ListRecipeAdapter.OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: MainActivity){
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
@@ -35,8 +34,8 @@ class GridRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
             .apply(RequestOptions().override(350, 550))
             .into(holder.imgPhoto)
 
-        holder.itemView.setOnClickListener{
-            onItemClickCallback.onItemClicked(listRecipes[holder.adapterPosition])}
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listRecipes[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int {
@@ -47,7 +46,8 @@ class GridRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
         var imgPhoto: ImageView = itemView.findViewById(R.id.item_img)
     }
 
-    interface OnItemClickCallback : ListRecipeAdapter.OnItemClickCallback {
-        override fun onItemClicked(data: Recipes)
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Recipes)
+
     }
 }

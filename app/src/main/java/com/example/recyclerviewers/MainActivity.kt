@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity(), ListRecipeAdapter.OnItemClickCallback {
+class MainActivity : AppCompatActivity() {
     private var rvRecipes: RecyclerView? = null
     private val list: MutableList<Recipes> = mutableListOf()
     private var title: String = "Mode List"
@@ -37,17 +38,17 @@ class MainActivity : AppCompatActivity(), ListRecipeAdapter.OnItemClickCallback 
         }
     }
 
-    override fun onItemClicked(data: Recipes) {
-        showSelectedRecipe(data)
-    }
-
     private fun showRecyclerList() {
         rvRecipes?.layoutManager = LinearLayoutManager(this)
 
         val listRecipeAdapter = ListRecipeAdapter(list as ArrayList<Recipes>)
         rvRecipes?.adapter = listRecipeAdapter
 
-        listRecipeAdapter.setOnItemClickCallback(this)
+        listRecipeAdapter.setOnItemClickCallback(object : ListRecipeAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Recipes) {
+                showSelectedRecipe(data)
+            }
+        })
     }
 
     private fun showRecyclerGrid() {
@@ -56,7 +57,11 @@ class MainActivity : AppCompatActivity(), ListRecipeAdapter.OnItemClickCallback 
         val gridRecipeAdapter = GridRecipeAdapter(list as ArrayList<Recipes>)
         rvRecipes?.adapter = gridRecipeAdapter
 
-        gridRecipeAdapter.setOnItemClickCallback(this)
+        gridRecipeAdapter.setOnItemClickCallback(object : GridRecipeAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Recipes) {
+                showSelectedRecipe(data)
+            }
+        })
     }
 
     private fun showRecyclerCardView() {
@@ -67,13 +72,22 @@ class MainActivity : AppCompatActivity(), ListRecipeAdapter.OnItemClickCallback 
     }
 
     private fun showSelectedRecipe(recipes: Recipes) {
-        val moveData = Intent(this@MainActivity, RecipePage::class.java)
+        Toast.makeText(this, "Kamu memilih " + recipes.name, Toast.LENGTH_SHORT).show()
+        moveRecipePage(recipes)
+    }
 
-        moveData.putExtra("recipeName", recipes.name)
-        moveData.putExtra("recipeDescription", recipes.recipe)
-        moveData.putExtra("recipePhoto", recipes.photo)
+    private fun moveRecipePage(recipes: Recipes){
+        val moveData = Intent(this@MainActivity, RecipePage::class.java)
+        val recipesName = recipes.name
+        val recipesDesc = recipes.recipe
+        val recipesPhoto = recipes.photo
+
+        moveData.putExtra("recipeName", recipesName)
+        moveData.putExtra("recipeDescription", recipesDesc)
+        moveData.putExtra("recipePhoto", recipesPhoto)
 
         startActivity(moveData)
+
     }
 
 

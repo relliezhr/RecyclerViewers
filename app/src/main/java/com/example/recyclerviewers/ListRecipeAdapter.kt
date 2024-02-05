@@ -13,8 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 class ListRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
     RecyclerView.Adapter<ListRecipeAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: MainActivity){
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
@@ -38,8 +37,8 @@ class ListRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
         holder.tvName.text = name
         holder.tvRecipes.text = recipe
 
-        holder.itemView.setOnClickListener{
-            onItemClickCallback.onItemClicked(listRecipes[holder.adapterPosition])}
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listRecipes[holder.adapterPosition]) }
     }
 
     override fun getItemCount(): Int {
@@ -50,17 +49,9 @@ class ListRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
         var tvName: TextView = itemView.findViewById(R.id.item_name)
         var tvRecipes: TextView = itemView.findViewById(R.id.item_recipes)
         var imgPhoto: ImageView = itemView.findViewById(R.id.item_img)
-        init {
-            itemView.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    onItemClickCallback.onItemClicked(listRecipes[position])
-                }
-            }
-        }
     }
-
-    interface OnItemClickCallback{
+    interface OnItemClickCallback {
         fun onItemClicked(data: Recipes)
+
     }
-}
+    }
