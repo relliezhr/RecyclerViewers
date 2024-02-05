@@ -14,6 +14,10 @@ import com.bumptech.glide.request.RequestOptions
 @Suppress("DEPRECATION")
 class CardViewRecipeAdapter(private val listRecipes: ArrayList<Recipes>):
     RecyclerView.Adapter<CardViewRecipeAdapter.CardViewViewHolder>() {
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CardViewViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_cardview_recipes, viewGroup, false)
         return CardViewViewHolder(view)
@@ -30,10 +34,11 @@ class CardViewRecipeAdapter(private val listRecipes: ArrayList<Recipes>):
         holder.tvName.text = name
         holder.tvRecipes.text = recipe
 
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listRecipes[holder.adapterPosition]) }
+
         holder.btnFavorite.setOnClickListener{Toast.makeText(holder.itemView.context, "Favorite " + listRecipes[holder.adapterPosition].name, Toast.LENGTH_SHORT).show()}
         holder.btnShare.setOnClickListener{Toast.makeText(holder.itemView.context, "Share " + listRecipes[holder.adapterPosition].name, Toast.LENGTH_SHORT).show()}
-        holder.itemView.setOnClickListener{Toast.makeText(holder.itemView.context, "Kamu memilih " + listRecipes[holder.adapterPosition].name, Toast.LENGTH_SHORT).show()}
-
     }
 
     override fun getItemCount(): Int {
@@ -46,5 +51,9 @@ class CardViewRecipeAdapter(private val listRecipes: ArrayList<Recipes>):
         var imgPhoto: ImageView = itemView.findViewById(R.id.item_img)
         var btnFavorite: Button = itemView.findViewById(R.id.btn_set_favorite)
         var btnShare: Button = itemView.findViewById(R.id.btn_set_share)
+    }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Recipes)
+
     }
 }

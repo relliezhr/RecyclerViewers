@@ -70,6 +70,12 @@ class MainActivity : AppCompatActivity() {
         cardViewRecipeAdapter = CardViewRecipeAdapter(list as ArrayList<Recipes>)
         rvRecipes?.adapter = cardViewRecipeAdapter
 
+        cardViewRecipeAdapter.setOnItemClickCallback(object : CardViewRecipeAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Recipes) {
+                showSelectedRecipe(data)
+            }
+        })
+
     }
 
     private fun showSelectedRecipe(recipes: Recipes) {

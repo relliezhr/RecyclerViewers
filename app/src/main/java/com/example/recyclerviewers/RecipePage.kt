@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class RecipePage: AppCompatActivity(){
+class RecipePage : AppCompatActivity() {
     @SuppressLint("WrongViewCast", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,15 +14,14 @@ class RecipePage: AppCompatActivity(){
 
         val tvRecipeName: TextView = findViewById(R.id.recipe_name)
         val tvRecipeDesc: TextView = findViewById(R.id.recipe_desc)
+        val imageView: ImageView = findViewById(R.id.recipe_photo)
 
         val recipeName = intent.getStringExtra("recipeName")
         val recipeDescription = intent.getStringExtra("recipeDescription")
         val recipePhoto = intent.getIntExtra("recipePhoto", 0)
 
         if (recipePhoto != 0) {
-            val imageView: ImageView = findViewById(R.id.recipe_name)
             imageView.setImageResource(recipePhoto)
-
             tvRecipeName.text = recipeName
             tvRecipeDesc.text = recipeDescription
         }
