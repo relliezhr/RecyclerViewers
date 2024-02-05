@@ -1,8 +1,10 @@
 package com.example.recyclerviewers
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var rvRecipes: RecyclerView? = null
     private val list: MutableList<Recipes> = mutableListOf()
     private var title: String = "Mode List"
@@ -37,6 +39,24 @@ class MainActivity : AppCompatActivity() {
             (supportActionBar as ActionBar).title = title
         }
     }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.food_recipes -> {
+                val selectedRecipe = (v as RecyclerView).getChildAdapterPosition(v)
+
+                val moveData = Intent(this@MainActivity, RecipePage::class.java)
+
+                moveData.putExtra("recipeName", list[selectedRecipe].name)
+                moveData.putExtra("recipeDescription", list[selectedRecipe].recipe)
+                moveData.putExtra("recipePhoto", list[selectedRecipe].photo)
+
+                startActivity(moveData)
+            }
+        }
+    }
+
+
 
     private fun showRecyclerList() {
         rvRecipes?.layoutManager = LinearLayoutManager(this)
