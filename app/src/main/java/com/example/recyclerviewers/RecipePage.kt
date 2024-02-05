@@ -1,12 +1,12 @@
 package com.example.recyclerviewers
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
-class RecipePage: Activity(){
+class RecipePage: AppCompatActivity(){
     @SuppressLint("WrongViewCast", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
