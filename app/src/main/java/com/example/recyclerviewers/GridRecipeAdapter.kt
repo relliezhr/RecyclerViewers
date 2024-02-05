@@ -13,7 +13,7 @@ class GridRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
     RecyclerView.Adapter<GridRecipeAdapter.GridViewHolder>() {
     private lateinit var onItemClickCallback: ListRecipeAdapter.OnItemClickCallback
 
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+    fun setOnItemClickCallback(onItemClickCallback: MainActivity){
         this.onItemClickCallback = onItemClickCallback
     }
 

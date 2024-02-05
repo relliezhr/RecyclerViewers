@@ -1,7 +1,6 @@
 package com.example.recyclerviewers
 
 import android.view.LayoutInflater
-import android.view.ScrollCaptureCallback
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -15,7 +14,7 @@ class ListRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
     RecyclerView.Adapter<ListRecipeAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+    fun setOnItemClickCallback(onItemClickCallback: MainActivity){
         this.onItemClickCallback = onItemClickCallback
     }
 
@@ -51,6 +50,14 @@ class ListRecipeAdapter(private val listRecipes: ArrayList<Recipes>) :
         var tvName: TextView = itemView.findViewById(R.id.item_name)
         var tvRecipes: TextView = itemView.findViewById(R.id.item_recipes)
         var imgPhoto: ImageView = itemView.findViewById(R.id.item_img)
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickCallback.onItemClicked(listRecipes[position])
+                }
+            }
+        }
     }
 
     interface OnItemClickCallback{
