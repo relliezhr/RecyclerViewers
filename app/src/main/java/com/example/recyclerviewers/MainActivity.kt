@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MainActivity : AppCompatActivity() {
     private var rvRecipes: RecyclerView? = null
     private val list: MutableList<Recipes> = mutableListOf()
-    private var title: String = "Mode List"
+    private var title: String = "Resep Nusantara"
     private lateinit var listRecipeAdapter: ListRecipeAdapter
     private lateinit var gridRecipeAdapter: GridRecipeAdapter
     private lateinit var cardViewRecipeAdapter: CardViewRecipeAdapter
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setActionBarTitle(title)
+        setActionBarTitleAndAppName(title)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -34,8 +34,9 @@ class MainActivity : AppCompatActivity() {
         showRecyclerList()
     }
 
-    private fun setActionBarTitle(title: String) {
+    private fun setActionBarTitleAndAppName(title: String) {
         supportActionBar?.title = title
+        setTitle(title)
     }
 
     private fun showRecyclerList() {
@@ -104,19 +105,20 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_list -> {
-                title = "Mode List"
                 showRecyclerList()
                 return true
             }
 
             R.id.action_grid -> {
                 title = "Mode Grid"
+                setActionBarTitleAndAppName(title)
                 showRecyclerGrid()
                 return true
             }
 
             R.id.action_cardview -> {
                 title = "Mode Card View"
+                setActionBarTitleAndAppName(title)
                 showRecyclerCardView()
                 return true
             }
