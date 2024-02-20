@@ -105,6 +105,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_list -> {
+                title = "Mode List"
+                setActionBarTitleAndAppName(title)
                 showRecyclerList()
                 return true
             }
