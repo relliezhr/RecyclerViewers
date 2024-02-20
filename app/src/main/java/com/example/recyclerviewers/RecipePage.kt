@@ -21,13 +21,23 @@ class RecipePage : AppCompatActivity() {
 
         val recipeName = intent.getStringExtra("recipeName")
         val recipeDescription = intent.getStringExtra("recipeDescription")
-        val recipePhoto = intent.getIntExtra("recipePhoto", 0)
+        val recipePhoto = intent.getStringExtra("recipePhoto")
 
         tvRecipeName.text = recipeName
-        tvMaterials.setText("Bahan:")
+        tvMaterials.text = "Bahan:"
         tvRecipeDesc.text = recipeDescription
 
-        imageView.setImageResource(recipePhoto)
+        if (recipePhoto != null) {
+            Glide.with(this)
+                .load(recipePhoto)
+                .apply(RequestOptions())
+                .into(imageView)
+        } else {
+            val resourceId = intent.getIntExtra("recipePhoto", 0)
+            if (resourceId != 0) {
+                imageView.setImageResource(resourceId)
+            }
+        }
 
 
     }

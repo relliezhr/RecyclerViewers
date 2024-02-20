@@ -35,7 +35,7 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginBottom="4dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         tools:text="@string/materials"/>
 
