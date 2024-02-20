@@ -5,25 +5,32 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class RecipePage : AppCompatActivity() {
-    @SuppressLint("WrongViewCast", "CutPasteId")
+    @SuppressLint("WrongViewCast", "CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_page)
 
-        val tvRecipeName: TextView = findViewById(R.id.recipe_name)
-        val tvRecipeDesc: TextView = findViewById(R.id.recipe_desc)
-        val imageView: ImageView = findViewById(R.id.recipe_photo)
+        val tvRecipeName: TextView = findViewById(R.id.item_name)
+        val tvMaterials: TextView = findViewById(R.id.materials)
+        val tvRecipeDesc: TextView = findViewById(R.id.item_recipes)
+        val imageView: ImageView = findViewById(R.id.item_img)
 
         val recipeName = intent.getStringExtra("recipeName")
         val recipeDescription = intent.getStringExtra("recipeDescription")
         val recipePhoto = intent.getIntExtra("recipePhoto", 0)
 
-        if (recipePhoto != 0) {
-            imageView.setImageResource(recipePhoto)
-            tvRecipeName.text = recipeName
-            tvRecipeDesc.text = recipeDescription
-        }
+        tvRecipeName.text = recipeName
+        tvMaterials.setText("Bahan:")
+        tvRecipeDesc.text = recipeDescription
+
+        Glide.with(this)
+            .load(recipePhoto)
+            .apply(RequestOptions().override(350, 550))
+            .into(imageView)
+
     }
 }
