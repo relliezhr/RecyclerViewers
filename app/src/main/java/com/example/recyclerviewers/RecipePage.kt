@@ -27,10 +27,8 @@ class RecipePage : AppCompatActivity() {
         tvMaterials.setText("Bahan:")
         tvRecipeDesc.text = recipeDescription
 
-        Glide.with(this)
-            .load(recipePhoto)
-            .apply(RequestOptions().override(350, 550))
-            .into(imageView)
+        imageView.setImageResource(recipePhoto)
+
 
     }
 }
